@@ -1,0 +1,7 @@
+CREATE TABLE urls (
+    id BIGSERIAL PRIMARY KEY, 
+    long_url TEXT NOT NULL,
+    code VARCHAR(7) NOT NULL UNIQUE, 
+    created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+    hits BIGINT NOT NULL DEFAULT 0
+);
