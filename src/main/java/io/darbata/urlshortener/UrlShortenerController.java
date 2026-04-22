@@ -1,5 +1,6 @@
 package io.darbata.urlshortener;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,13 +13,20 @@ class UrlShortenerController {
         this.service = service;
     }
 
+    @GetMapping("/health")
+    ResponseEntity<?> health() {
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
-    String handleLongUrl(@RequestBody String url) {
-        return service.shortenUrl(url);
+    ResponseEntity<?> handleLongUrl(@RequestBody String url) {
+        String code = service.shortenUrl(url);
+        return ResponseEntity.ok().body(code);
     }
 
     @GetMapping("/{code}")
-    String handleShortUrl(@PathVariable String code) {
-        return service.fetchLongUrl(code);
+    ResponseEntity<?> handleShortUrl(@PathVariable String code) {
+        String url = service.fetchLongUrl(code);
+        return ResponseEntity.ok().body(url);
     }
 }
