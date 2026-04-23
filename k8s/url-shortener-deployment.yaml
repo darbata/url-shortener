@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: url-shortener
+  name: url-shortener
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: url-shortener
+  template:
+    metadata:
+      labels:
+        app: url-shortener
+    spec:
+      containers:
+      - image: australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/darbata-registry/urlshortener-api:latest
+        imagePullPolicy: Always
+        name: urlshortener-api
+        envFrom:
+          - configMapRef:
+              name: url-shortener-config
+          - secretRef:
+              name: secret
+        livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+        readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3

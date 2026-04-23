@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+      - .
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - rollout
+      - restart
+      - deployment/urlshortener-api
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=australia-southeast2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster'
