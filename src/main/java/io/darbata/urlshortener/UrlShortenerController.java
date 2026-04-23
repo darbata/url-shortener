@@ -13,11 +13,6 @@ class UrlShortenerController {
         this.service = service;
     }
 
-    @GetMapping("/health")
-    ResponseEntity<?> health() {
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping
     ResponseEntity<?> handleLongUrl(@RequestBody String url) {
         String code = service.shortenUrl(url);
@@ -26,6 +21,7 @@ class UrlShortenerController {
 
     @GetMapping("/{code}")
     ResponseEntity<?> handleShortUrl(@PathVariable String code) {
+        // no domain yet, so just return the code
         String url = service.fetchLongUrl(code);
         return ResponseEntity.ok().body(url);
     }
