@@ -1,5 +1,6 @@
 package io.darbata.urlshortener;
 
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ class UrlShortenerController {
     }
 
     @PostMapping
-    ResponseEntity<ShortenUrlResponseDto> handleLongUrl(@RequestBody ShortenUrlRequest body) {
+    ResponseEntity<ShortenUrlResponseDto> handleLongUrl(@RequestBody @Valid ShortenUrlRequest body) {
         ShortenUrlResponseDto response = service.shortenUrl(body.url());
         log.info("Shortening URL {}, to Code {}", body.url(), response.code());
         return ResponseEntity.ok().body(response);
