@@ -18,27 +18,22 @@ class UrlShortenerService {
         int max = 3;
 
         while (true) {
-
             try {
+                // generated potential code
+                String generated = generateCode();
 
-                String code = generateCode();
-                repo.insert(longUrl, code);
+                // long url may already exist
+                // return the final associated code generated or existing
+                String associated = repo.insert(longUrl, generated);
 
-                return new ShortenUrlResponseDto(code);
-
+                return new ShortenUrlResponseDto(associated);
             } catch (DataIntegrityViolationException e) {
-
                 // small chance we get a collision
                 if (++count == max) throw e;
-
             } catch (Exception e) {
-
                 throw new RuntimeException(e);
-
             }
-
         }
-
     }
 
     public LongUrlDto fetchLongUrl(String code) {

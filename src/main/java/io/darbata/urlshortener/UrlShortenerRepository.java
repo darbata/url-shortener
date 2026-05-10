@@ -26,23 +26,24 @@ class UrlShortenerRepository {
         this.client = client;
     }
 
-    void insert(String longUrl, String code) {
+    String insert(String longUrl, String code) {
         String sql = """
         INSERT INTO urls (long_url, code)
-        VALUES (:longUrl, :code);
+        VALUES (:longUrl, :code)
+        ON CONFLICT (long_url) DO UPDATE SET long_url = :longUrl
+        RETURNING code;
         """;
 
-        client.sql(sql)
+        return client.sql(sql)
                 .param("longUrl", longUrl)
                 .param("code", code)
-                .update();
+                .query(String.class)
+                .single();
     }
 
     Optional<String> getLongUrl(String code) {
         String sql = """
-        SELECT long_url 
-        FROM urls 
-        WHERE code = :code;
+        SELECT long_url FROM urls WHERE code = :code;
         """;
 
         return client.sql(sql)

@@ -1,6 +1,6 @@
 CREATE TABLE urls (
     id BIGSERIAL PRIMARY KEY, 
-    long_url TEXT NOT NULL,
+    long_url TEXT NOT NULL UNIQUE,
     code VARCHAR(7) NOT NULL UNIQUE, 
     created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
