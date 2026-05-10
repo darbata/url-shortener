@@ -17,7 +17,7 @@ steps:
     args:
       - rollout
       - restart
-      - deployment/urlshortener-api
+      - deployment/url-shortener
     env:
       - 'CLOUDSDK_COMPUTE_REGION=australia-southeast2'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cluster'
