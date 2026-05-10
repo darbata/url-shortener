@@ -25,12 +25,14 @@ spec:
           - secretRef:
               name: secret
         livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 60
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
         readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 30
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+        startupProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
