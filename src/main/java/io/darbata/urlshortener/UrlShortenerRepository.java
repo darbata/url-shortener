@@ -40,9 +40,9 @@ class UrlShortenerRepository {
 
     Optional<String> getLongUrl(String code) {
         String sql = """
-        UPDATE urls SET hits = hits + 1
-        WHERE code = :code
-        RETURNING long_url;
+        SELECT long_url 
+        FROM urls 
+        WHERE code = :code;
         """;
 
         return client.sql(sql)
