@@ -17,17 +17,17 @@ class UrlShortenerController {
     }
 
     @PostMapping
-    ResponseEntity<?> handleLongUrl(@RequestBody String url) {
-        String code = service.shortenUrl(url);
-        log.info("Shortening URL {}, to Code {}", url, code);
-        return ResponseEntity.ok().body(code);
+    ResponseEntity<ShortenUrlResponseDto> handleLongUrl(@RequestBody ShortenUrlRequest body) {
+        ShortenUrlResponseDto response = service.shortenUrl(body.url());
+        log.info("Shortening URL {}, to Code {}", body.url(), response.code());
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{code}")
-    ResponseEntity<?> handleShortUrl(@PathVariable String code) {
+    ResponseEntity<LongUrlDto> handleShortUrl(@PathVariable String code) {
         // no domain yet, so just return the code
-        String url = service.fetchLongUrl(code);
-        log.info("Retrieving URL {}, from Code, {}", url, code);
-        return ResponseEntity.ok().body(url);
+        LongUrlDto dto = service.fetchLongUrl(code);
+        log.info("Retrieving URL {}, from Code, {}", dto.url(), code);
+        return ResponseEntity.ok().body(dto);
     }
 }

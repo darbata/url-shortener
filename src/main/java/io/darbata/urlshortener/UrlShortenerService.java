@@ -13,7 +13,7 @@ class UrlShortenerService {
         this.repo = urlShortenerRepository;
     }
 
-    public String shortenUrl(String longUrl) {
+    public ShortenUrlResponseDto shortenUrl(String longUrl) {
         int count = 0;
         int max = 3;
 
@@ -23,7 +23,8 @@ class UrlShortenerService {
 
                 String code = generateCode();
                 repo.insert(longUrl, code);
-                return code;
+
+                return new ShortenUrlResponseDto(code);
 
             } catch (DataIntegrityViolationException e) {
 
@@ -40,10 +41,11 @@ class UrlShortenerService {
 
     }
 
-    public String fetchLongUrl(String code) {
-        return repo.getLongUrl(code).orElseThrow(
+    public LongUrlDto fetchLongUrl(String code) {
+        String longUrl = repo.getLongUrl(code).orElseThrow(
                 () -> new NoMatchingUrlException("No matching url for code " + code)
         );
+        return new LongUrlDto(longUrl);
     }
 
     private String generateCode() {
