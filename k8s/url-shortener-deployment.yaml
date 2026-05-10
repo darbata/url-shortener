@@ -9,13 +9,17 @@ spec:
   selector:
     matchLabels:
       app: url-shortener
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: url-shortener
     spec:
       containers:
-      # - image: australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest
       - image: darbata1/urlshortener-api
         imagePullPolicy: Always
         name: urlshortener-api
