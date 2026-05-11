@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 class UrlShortenerService {
 
     private final UrlShortenerRepository repo;
+    private final CacheService cache;
 
-    UrlShortenerService(UrlShortenerRepository urlShortenerRepository) {
+    UrlShortenerService(UrlShortenerRepository urlShortenerRepository, CacheService cache) {
         this.repo = urlShortenerRepository;
+        this.cache = cache;
     }
 
     public ShortenUrlResponseDto shortenUrl(String longUrl) {
@@ -36,10 +38,8 @@ class UrlShortenerService {
         }
     }
 
-    public LongUrlDto fetchLongUrl(String code) {
-        String longUrl = repo.getLongUrl(code).orElseThrow(
-                () -> new NoMatchingUrlException("No matching url for code " + code)
-        );
+    public LongUrlDto handleCode(String code) {
+        String longUrl = cache.fetchLongUrl(code);
         return new LongUrlDto(longUrl);
     }
 

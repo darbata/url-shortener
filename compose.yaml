@@ -10,6 +10,9 @@ services:
       - POSTGRES_DATABASE=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=example
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+
     depends_on:
       db:
         condition: service_healthy
@@ -26,3 +29,5 @@ services:
       timeout: 3s
       retries: 3
 
+  cache:
+    image: redis:alpine

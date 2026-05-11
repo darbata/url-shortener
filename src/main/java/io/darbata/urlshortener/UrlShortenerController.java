@@ -27,7 +27,7 @@ class UrlShortenerController {
     @GetMapping("/{code}")
     ResponseEntity<LongUrlDto> handleShortUrl(@PathVariable String code) {
         // no domain yet, so just return the code
-        LongUrlDto dto = service.fetchLongUrl(code);
+        LongUrlDto dto = service.handleCode(code);
         log.info("Retrieving URL {}, from Code, {}", dto.url(), code);
         return ResponseEntity.ok().body(dto);
     }

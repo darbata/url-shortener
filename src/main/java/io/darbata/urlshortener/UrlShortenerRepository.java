@@ -5,20 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/*
-
-CREATE TABLE urls (
-    id         BIGSERIAL PRIMARY KEY, // auto increments
-    long_url   TEXT         NOT NULL,
-    code       VARCHAR(7)  NOT NULL UNIQUE, // represents short url
-    created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
-    hits       BIGINT       NOT NULL DEFAULT 0
-);
-
-*/
-
 @Repository
-class UrlShortenerRepository {
+public class UrlShortenerRepository {
 
     private final JdbcClient client;
 
