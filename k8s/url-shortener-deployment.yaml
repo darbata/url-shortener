@@ -20,7 +20,7 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/urlshortener-api
+      - image: darbata1/urlshortener:after-a
         imagePullPolicy: Always
         name: urlshortener-api
         envFrom:
