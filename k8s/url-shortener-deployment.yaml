@@ -5,7 +5,7 @@ metadata:
     app: url-shortener
   name: url-shortener
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: url-shortener
@@ -20,7 +20,7 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/urlshortener:after-a
+      - image: darbata1/urlshortener:new-a
         imagePullPolicy: Always
         name: urlshortener-api
         envFrom:
@@ -30,11 +30,11 @@ spec:
               name: secret
         resources:
           requests:
-            cpu: 100m
-            memory: 300Mi
+            cpu: 150m
+            memory: 312Mi
           limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 800m
+            memory: 624Mi
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
