@@ -3,7 +3,7 @@ services:
   api: 
     build: .
     ports: 
-      - 80:8080
+      - 8080:8080
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
