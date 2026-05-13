@@ -15,7 +15,7 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/urlshortener:old-a
+      - image: darbata1/url:naive-a
         imagePullPolicy: Always
         name: urlshortener-api
         envFrom:
