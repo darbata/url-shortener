@@ -10,7 +10,8 @@ spec:
     kind: Deployment
     name: url-shortener
   minReplicas: 4
-  maxReplicas: 16 
+  maxReplicas: 52 
+
   metrics:
   - type: Resource
     resource: 
@@ -18,3 +19,27 @@ spec:
         target:
           type: Utilization
           averageUtilization: 60 
+
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 15
+      policies:
+
+        # double
+        - type: Percent
+          value: 100
+          periodSeconds: 60
+
+        # or add 10 pods quick
+        - type: Pods
+          value: 10
+          periodSeeconds: 30
+
+      selectPolicy: Max
+
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+
+      - type: 20
+        periodSeconds: 60

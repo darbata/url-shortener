@@ -13,15 +13,15 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-      maxSurge: 1
+      maxSurge: 2
   template:
     metadata:
       labels:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/url:rely-a
-        imagePullPolicy: Always
+      - image: darbata1/url:nice-a
+        imagePullPolicy: IfNotPresent
         name: urlshortener-api
         envFrom:
           - configMapRef:
@@ -39,16 +39,10 @@ spec:
           httpGet:
             path: /actuator/health/liveness
             port: 8080
-          periodSeconds: 10
-          timeoutSeconds: 3
-          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /actuator/health/readiness
             port: 8080
-          periodSeconds: 5
-          timeoutSeconds: 5
-          failureThreshold: 3
         startupProbe:
           httpGet:
             path: /actuator/health/liveness
