@@ -23,11 +23,18 @@ spec:
       - image: darbata1/url:nice-a
         imagePullPolicy: IfNotPresent
         name: urlshortener-api
+        env:
+        - name: JAVA_OPTS
+          value: >-
+            -XX:MaxRAMPercentage=75.0
+            -XX:+UseG1GC
+            -XX:+UseContainerSupport
+            -Djava.security.egd=file:/dev/./urandom
         envFrom:
-          - configMapRef:
-              name: url-shortener-config
-          - secretRef:
-              name: secret
+            - configMapRef:
+                name: url-shortener-config
+            - secretRef:
+                name: secret
         resources:
           requests:
             cpu: 300m
@@ -47,5 +54,11 @@ spec:
           httpGet:
             path: /actuator/health/liveness
             port: 8080
-          failureThreshold: 30
+          initialDelaySeconds: 10
           periodSeconds: 5
+          failureThreshold: 30
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 15"] # let current connections drain
+      terminationGracePeriodSeconds: 45
