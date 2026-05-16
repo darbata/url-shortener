@@ -5,7 +5,7 @@ metadata:
     app: url-shortener
   name: url-shortener
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: url-shortener
@@ -15,7 +15,7 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/url:naive-a
+      - image: darbata1/url:bad-a
         imagePullPolicy: Always
         name: urlshortener-api
         envFrom:
