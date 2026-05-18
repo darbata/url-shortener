@@ -20,7 +20,6 @@ spec:
         app: url-shortener
     spec:
       containers:
-<<<<<<< HEAD
       - image: darbata1/url:bad-a
         imagePullPolicy: Always
         name: urlshortener-api
@@ -29,7 +28,6 @@ spec:
               name: url-shortener-config
           - secretRef:
               name: secret
-=======
       - image: darbata1/url:nice-a
         imagePullPolicy: IfNotPresent
         name: urlshortener-api
@@ -69,4 +67,3 @@ spec:
               command: ["sh", "-c", "sleep 15"] # let current connections drain
 
       terminationGracePeriodSeconds: 45
->>>>>>> testing-reliability
