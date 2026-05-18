@@ -9,12 +9,18 @@ spec:
   selector:
     matchLabels:
       app: url-shortener
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
   template:
     metadata:
       labels:
         app: url-shortener
     spec:
       containers:
+<<<<<<< HEAD
       - image: darbata1/url:bad-a
         imagePullPolicy: Always
         name: urlshortener-api
@@ -23,3 +29,44 @@ spec:
               name: url-shortener-config
           - secretRef:
               name: secret
+=======
+      - image: darbata1/url:nice-a
+        imagePullPolicy: IfNotPresent
+        name: urlshortener-api
+        envFrom:
+            - configMapRef:
+                name: url-shortener-config
+            - secretRef:
+                name: secret
+
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+        startupProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 30
+
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 15"] # let current connections drain
+
+      terminationGracePeriodSeconds: 45
+>>>>>>> testing-reliability
