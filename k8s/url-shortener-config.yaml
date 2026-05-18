@@ -9,3 +9,4 @@ data:
   POSTGRES_USER: postgres
   REDIS_HOST: redis
   REDIS_PORT: "6379"
+  JAVA_OPTS: -XX:MaxRAMPercentage=75.0
