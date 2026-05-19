@@ -5,7 +5,7 @@ steps:
     args:
       - build
       - -t
-      - 'darbata1/url:latest'
+      - 'darbata1/urlshortener-api:latest'
       - .
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -14,12 +14,12 @@ steps:
       - -u
       - 'darbata1'
       - -p
-      - 'dckr_pat_rOowNs7ohXB2qWjv86DfehQxYGM'
+      - 'dckr_pat_rOowNs7ohXB2qWjv86DfehQxYGM' 
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - push
-      - 'darbata1/url:latest'
+      - 'darbata1/urlshortener-api:latest'
 
   - name: 'gcr.io/cloud-builders/kubectl'
     args:

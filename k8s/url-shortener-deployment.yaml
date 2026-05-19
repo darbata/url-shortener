@@ -20,14 +20,6 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/url:bad-a
-        imagePullPolicy: Always
-        name: urlshortener-api
-        envFrom:
-          - configMapRef:
-              name: url-shortener-config
-          - secretRef:
-              name: secret
       - image: darbata1/url:nice-a
         imagePullPolicy: IfNotPresent
         name: urlshortener-api
