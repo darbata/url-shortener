@@ -1,11 +1,7 @@
 services:
 
   api: 
-<<<<<<< HEAD
     image: darbata1/url:naive-a
-=======
-    image: darbata1/url:reliable-b
->>>>>>> testing-reliability
     ports: 
       - 8080:8080
     environment:
