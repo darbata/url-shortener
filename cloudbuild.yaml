@@ -5,19 +5,18 @@ steps:
     args:
       - build
       - -t
-      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+      - 'darbata1/urlshortener-api:latest'
       - .
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
-      - push
-      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+      - login
+      - -u
+      - 'darbata1'
+      - -p
+      - 'dckr_pat_...' # obfuscated PAT - hardcode PAT was done as CloudBuild does not have access to Secret Manager either
 
-  - name: 'gcr.io/cloud-builders/kubectl'
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      - rollout
-      - restart
-      - deployment/urlshortener-api
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=australia-southeast2'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster'
+      - push
+      - 'darbata1/urlshortener-api:latest'
