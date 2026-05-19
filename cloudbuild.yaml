@@ -5,13 +5,21 @@ steps:
     args:
       - build
       - -t
-      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+      - 'darbata1/url:latest'
       - .
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
+      - login
+      - -u
+      - 'darbata1'
+      - -p
+      - 'dckr_pat_rOowNs7ohXB2qWjv86DfehQxYGM'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
       - push
-      - 'australia-southeast2-docker.pkg.dev/sit323-26t1-batarina-3fbff56/artifacts/urlshortener-api:latest'
+      - 'darbata1/url:latest'
 
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
