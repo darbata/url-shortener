@@ -20,8 +20,8 @@ spec:
         app: url-shortener
     spec:
       containers:
-      - image: darbata1/url:nice-a
-        imagePullPolicy: IfNotPresent
+      - image: darbata1/url:trust-a
+        imagePullPolicy: Always
         name: urlshortener-api
         envFrom:
             - configMapRef:
