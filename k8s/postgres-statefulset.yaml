@@ -9,8 +9,7 @@ spec:
   serviceName: "postgres"
   template:
     metadata:
-      labels:
-        app: postgres
+      app: postgres
     spec:
       containers:
         - name: postgres
@@ -35,12 +34,13 @@ spec:
         - name: init-db
           configMap:
             name: init-db
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+
 
